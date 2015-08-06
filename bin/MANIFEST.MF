@@ -1,0 +1,7 @@
+MIDlet-1: Dobon, Dobon.png, Dobon
+MIDlet-Data-Size: 32768
+MIDlet-Name: ドボン(トランプ)
+MIDlet-Vendor: yotaro-neko
+MIDlet-Version: 1.0.3
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
