@@ -1,0 +1,12 @@
+MIDlet-1: Dobon, Dobon.png, Dobon
+MIDlet-Data-Size: 32768
+MIDlet-Jar-Size: 90397
+MIDlet-Jar-URL: Dobon.jar
+MIDlet-Name: ドボン(トランプ)
+MIDlet-Vendor: yotaro-neko
+MIDlet-Version: 1.0.3
+MPP-Height: 268
+MPP-Width: 240
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
+OAP-Screen-Size: WVGA
