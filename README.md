@@ -1,5 +1,5 @@
 # Dobon
-Card game app for 'open appli' platform provided by AU.
+Card game app for the 'open appli' platform provided by AU.
 
 ## Execution by AppletViwer
 ```bash
