@@ -1,0 +1,2 @@
+#!/bin/sh
+java -noverify -jar ./emulator/player.jar ./bin/Dobon.jad -d tmpclasses
