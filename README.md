@@ -6,7 +6,7 @@ Java JDK
 
 ## Execution by AppletViwer
 ```bash
-appletviewer applet.html
+appletviewer -J-noverify applet.html
 ```
 
 ## Execution on the emulator
