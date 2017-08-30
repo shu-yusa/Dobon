@@ -3,7 +3,7 @@ APP=Dobon
 # compile src
 javac -classpath ./midplib/cldcapi11.jar:./midplib/midpapi21.jar -d tmpclasses/ src/*.java
 # preverify
-./midplib/preverify -nofinalize -nonative -classpath ./midplib/cldcapi11.jar:./midplib/midpapi21.jar  -d /Users/yusa/j2mewtk/2.5.2/apps/${APP}/classes /Users/yusa/j2mewtk/2.5.2/apps/${APP}/tmpclasses
+./midplib/preverify -nofinalize -nonative -classpath ./midplib/cldcapi11.jar:./midplib/midpapi21.jar -d ./classes ./tmpclasses
 
 # archive
 jar cfm bin/${APP}.jar  bin/MANIFEST.MF -C classes . -C res .
