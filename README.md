@@ -1,6 +1,9 @@
 # Dobon
 Card game app for the 'open appli' platform provided by AU.
 
+## Prerequisites
+Java JDK
+
 ## Execution by AppletViwer
 ```bash
 appletviewer applet.html
@@ -16,4 +19,4 @@ Note that the menu button does not work well on the emulator.
 ```bash
 ./compile
 ```
-
+This will create bin/Dobon.jar.
