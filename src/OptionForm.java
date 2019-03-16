@@ -100,8 +100,7 @@ class OptionForm extends Form implements CommandListener,
     String str = t1.getString();
     if (str.equals("")) {
       str = " , , , , ";
-    }
-    else {
+    } else {
       String strNewScore  = strScore[c1.getSelectedIndex()];
       String strNewCPUNum = strCPU[c2.getSelectedIndex()];
       String strNewVib    = strVib[c3.getSelectedIndex()];
@@ -112,8 +111,10 @@ class OptionForm extends Form implements CommandListener,
       dc.generateComPlayers(str, newScore, newCPUNum);
       dc.setVib(strNewVib.equals("ON"));
       dc.setSound(strNewSound.equals("ON"));
-      str += "," + strNewScore + "," + strNewCPUNum
-           + "," + strNewVib   + "," + strNewSound;
+      str = Util.concat(new String[] {
+        str, ",", strNewScore, ",", strNewCPUNum, ",", strNewVib, ",", strNewSound,
+      });
+      // str += "," + strNewScore + "," + strNewCPUNum + "," + strNewVib + "," + strNewSound;
     }
 
     try {

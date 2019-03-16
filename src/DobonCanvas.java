@@ -75,7 +75,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     volume         = 0;
     keyState       = 0;
     frmcnt         = 0;
-    scene          = 0; 
+    scene          = 0;
     winnerId       = 0;
     loserId        = 0;
     turnId         = 0;
@@ -101,20 +101,20 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     try {
       String[] num = {"A","2","3","4","5","6","7","8","9","10","J","Q","K",};
       for (int i=0; i<num.length; i++) {
-        img[i]    = Image.createImage("/spade" + num[i] + ".png");
-        img[i+13] = Image.createImage("/heart" + num[i] + ".png");
-        img[i+26] = Image.createImage("/dia"   + num[i] + ".png");
-        img[i+39] = Image.createImage("/club"  + num[i] + ".png");
+        img[i]    = Image.createImage(Util.concat(new String[] {"/spade", num[i], ".png"}));
+        img[i+13] = Image.createImage(Util.concat(new String[] {"/heart", num[i], ".png"}));
+        img[i+26] = Image.createImage(Util.concat(new String[] {"/dia", num[i], ".png"}));
+        img[i+39] = Image.createImage(Util.concat(new String[] {"/club", num[i], ".png"}));
       }
 
       for (int i=0; i<num.length; i++) {
-        img2[i]    = Image.createImage("/mini/S" + (i+1) + ".png");
-        img2[i+13] = Image.createImage("/mini/H" + (i+1) + ".png");
-        img2[i+26] = Image.createImage("/mini/D" + (i+1) + ".png");
-        img2[i+39] = Image.createImage("/mini/C" + (i+1) + ".png");
+        img2[i]    = Image.createImage(Util.concat(new String[] {"/mini/S", String.valueOf(i+1), ".png"}));
+        img2[i+13] = Image.createImage(Util.concat(new String[] {"/mini/H", String.valueOf(i+1), ".png"}));
+        img2[i+26] = Image.createImage(Util.concat(new String[] {"/mini/D", String.valueOf(i+1), ".png"}));
+        img2[i+39] = Image.createImage(Util.concat(new String[] {"/mini/C", String.valueOf(i+1), ".png"}));
       }
 
-      img2[52] = Image.createImage("/mini/Rev"+ (rand.nextInt(9)+1) + ".png");
+      img2[52] = Image.createImage(Util.concat(new String[] {"/mini/Rev", String.valueOf(rand.nextInt(9)+1), ".png"}));
       if (WIDTH == 480) {
 //      img2 = null;
         for (int i=0; i<img.length; i++) {
@@ -187,7 +187,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     players    = new DobonPlayer[CPU.length+1];
     players[0] = human  = new PlayerHuman(name,0,score,this);
     for (int i=0; i<CPU.length; i++) {
-      players[i+1] = CPU[i] = new PlayerCPU("com"+(i+1),i+1,score,this);
+      players[i+1] = CPU[i] = new PlayerCPU(Util.concat(new String[] {"com", String.valueOf(i+1)}), i+1, score, this);
     }
     paintOrder     = new int[players.length];
 
@@ -251,7 +251,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     g.fillRect(0,0,WIDTH,HEIGHT);
 
     // information
-    if (flag2) info2 = "2x"+multiDraw/2+ " = " + multiDraw;
+    if (flag2) info2 = Util.concat(new String[] {"2x", String.valueOf(multiDraw/2), " = ", String.valueOf(multiDraw)});
     else info2 = "";
     g.setColor(0,0,0);
     g.drawString(info1,WIDTH/2,HEIGHT*11/20,Graphics.HCENTER|Graphics.TOP);
@@ -294,7 +294,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
       }
       info1 = "";
     }
-    
+
     if (((ks & LEFT_PRESSED) != 0) && ((keyState & LEFT_PRESSED) == 0)) {
       if (human.getChoosedCard() > 0) {
         human.setChoosedCard(human.getChoosedCard()-1);
@@ -308,7 +308,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     // 各ターンでの処理
     if (turnId == 0) {
       frmcnt++;
-      if (numDobon == 0 || 
+      if (numDobon == 0 ||
          (numDobon == 1 && human.dobonAble && tmpWinner == -1)) {
         if (!flagStopping) humanTurn(ks);
       }
@@ -447,7 +447,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     switch (numDobon) {
       // case II-AB-1
       case 1: cpuDobonFrm[cpuDobonId[0]] = 5;
-              break; 
+              break;
       // case II-AB-2
       case 2: if (rand.nextInt(2) == 0) {
                 cpuDobonFrm[cpuDobonId[0]] = 15 ;
@@ -511,7 +511,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     if (human.dobonCheck()) {
       human.dobonAble = true;
       frmCpuWait = 50;
-      numDobon++; 
+      numDobon++;
       // ドボン可能人数のチェック
       if (!cpuReDobonAble) {
         switch (numDobon) {
@@ -709,7 +709,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     }
     players[id].winner = true;
     winnerId    = id;
-    info1       = players[id].name + " win";
+    info1       = Util.concat(new String[] {players[id].name, " win"});
     flagOver    = true;
     human.flag8 = false;
     setScores();
@@ -723,7 +723,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
   void finalizeDobon(int winnerId, int loserId) {
     players[winnerId].winner = true;
     this.winnerId = winnerId;
-    info1         = players[winnerId].name + " win";
+    info1         = Util.concat(new String[] {players[winnerId].name, " win"});
     flagDobon     = true;
     flagOver      = true;
     human.flag8   = false;
@@ -803,31 +803,35 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     g.setColor(0,0,0);
     for (int i=0; i<players.length; i++) {
       if (players[i].winner) {
-        str = players[i].name + ":"
-            + players[i].getPrevScore() + "+"
-            + players[i].getScoreGain() + " = " 
-            + players[i].getScore() + "点";
-        g.drawString(str,5,67*i+5,Graphics.LEFT|Graphics.TOP);
+        str = Util.concat(new String[] {
+          players[i].name, ":",
+          String.valueOf(players[i].getPrevScore()), "+",
+          String.valueOf(players[i].getScoreGain()), " = ",
+          String.valueOf(players[i].getScore()), "点",
+        });
+        g.drawString(str, 5, 67*i+5, Graphics.LEFT|Graphics.TOP);
       }
       else {
-        str = players[i].name + ":"
-            + players[i].getPrevScore() + "-"
-            + (-players[i].getScoreGain()) + " = " 
-            + players[i].getScore() + "点";
-        g.drawString(str,5,67*i+5,Graphics.LEFT|Graphics.TOP);
-        g.drawString(" ="+Math.abs(players[i].getScoreGain()),
-                     186,67*i+40, Graphics.LEFT|Graphics.TOP);
+        str = Util.concat(new String[] {
+          players[i].name, ":",
+          String.valueOf(players[i].getPrevScore()), "-",
+          String.valueOf(-players[i].getScoreGain()), " = ",
+          String.valueOf(players[i].getScore()), "点",
+        });
+        g.drawString(str, 5, 67*i+5, Graphics.LEFT|Graphics.TOP);
+        g.drawString(Util.concat(new String[] {" =", String.valueOf(Math.abs(players[i].getScoreGain()))}),
+                     186, 67*i+40, Graphics.LEFT|Graphics.TOP);
       }
       len = players[i].getNumCards();
       y = 67*i + 32;
       for (int j=0; j<len; j++) {
         x = (180-32*len) * (j+1) / (len+1) + 32*j + 4;
-        g.drawImage(img2[players[i].ownCards[j]],x,y,
+        g.drawImage(img2[players[i].ownCards[j]], x, y,
                     Graphics.LEFT|Graphics.TOP);
       }
-      g.setColor(0,0,255);
-      g.drawLine(0,y+35,getWidth(),y+35);
-      g.setColor(0,0,0);
+      g.setColor(0, 0, 255);
+      g.drawLine(0, y+35, getWidth(), y+35);
+      g.setColor(0, 0, 0);
     }
   }
 
@@ -841,23 +845,27 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     g.setColor(0,0,0);
 
     // winner score and cards
-    str = players[winnerId].name + ":"
-        + players[winnerId].getPrevScore() + "+"
-        + players[winnerId].getScoreGain() + " = " 
-        + players[winnerId].getScore() + "点";
-    g.drawString(str,5,5,Graphics.LEFT|Graphics.TOP);
+    str = Util.concat(new String[] {
+      players[winnerId].name, ":",
+      String.valueOf(players[winnerId].getPrevScore()), "+",
+      String.valueOf(players[winnerId].getScoreGain()), " = ",
+      String.valueOf(players[winnerId].getScore()), "点",
+    });
+    g.drawString(str, 5, 5, Graphics.LEFT|Graphics.TOP);
     len = players[winnerId].getNumCards();
     for (int j=0; j<len; j++) {
       x = (180-32*len) * (j+1) / (len+1) + 32*j;
-      g.drawImage(img2[players[winnerId].ownCards[j]],x,45,
+      g.drawImage(img2[players[winnerId].ownCards[j]], x, 45,
                   Graphics.LEFT|Graphics.TOP);
     }
 
     // losers score and cards
-    str = players[loserId].name + ":"
-        + players[loserId].getPrevScore() +
-        + players[loserId].getScoreGain() + " = " 
-        + players[loserId].getScore() + "点";
+    str = Util.concat(new String[] {
+      players[loserId].name, ":",
+      String.valueOf(players[loserId].getPrevScore()),
+      String.valueOf(players[loserId].getScoreGain()), " = ",
+      String.valueOf(players[loserId].getScore()), "点",
+    });
     g.drawString(str,5,25,Graphics.LEFT|Graphics.TOP);
     len = players[loserId].getNumCards();
     for (int j=0; j<len; j++) {
@@ -871,17 +879,20 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     g.drawImage(img2[fieldCard],x,82,
                 Graphics.LEFT|Graphics.TOP);
 
-    g.drawString(" ="+Math.abs(players[winnerId].getScoreGain()),
+    g.drawString(Util.concat(new String[] {" =", String.valueOf(Math.abs(players[winnerId].getScoreGain()))}),
                  184,80,Graphics.LEFT|Graphics.TOP);
 
-    g.setColor(0,0,255);
-    g.drawLine(0,117,getWidth(),117);
-    g.setColor(0,0,0);
+    g.setColor(0, 0, 255);
+    g.drawLine(0, 117, getWidth(), 117);
+    g.setColor(0, 0, 0);
 
     for (int i=0; i<players.length; i++) {
       if ((i != winnerId) && (i != loserId)) {
-        str = players[i].name + ":" + players[i].getScore() + "点";
-        g.drawString(str,5,125+k*20,Graphics.LEFT|Graphics.TOP);
+        str = Util.concat(new String[] {
+          players[i].name, ":",
+          String.valueOf(players[i].getScore()), "点",
+        });
+        g.drawString(str, 5, 125+k*20, Graphics.LEFT|Graphics.TOP);
         k++;
       }
     }
@@ -909,9 +920,9 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
       score[id] = -1000000;
     }
 
-    g.setColor(255,204,255);
-    g.fillRect(0,0,getWidth(),getHeight());
-    g.setColor(0,0,0);
+    g.setColor(255, 204, 255);
+    g.fillRect(0, 0, getWidth(), getHeight());
+    g.setColor(0, 0, 0);
 
     String str[] = new String[players.length];
     int k    = 1;
@@ -919,7 +930,7 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
     int pos  = getWidth()/2;
     for (int i=0; i<players.length; i++) {
       if (i > 0) {
-        if (players[order[i]].getScore() == 
+        if (players[order[i]].getScore() ==
             players[order[i-1]].getScore()) {
           k = prev;
         }
@@ -927,9 +938,12 @@ public class DobonCanvas extends GameCanvas implements Runnable, CommandListener
           k = i + 1;
         }
       }
-      
-      str[i] = k + "位: " + players[order[i]].getName() 
-                 + "("    + players[order[i]].getScore() + "点)";
+
+      str[i] = Util.concat(new String[] {
+        String.valueOf(k), "位: ",
+        players[order[i]].getName(), "(",
+        String.valueOf(players[order[i]].getScore()), "点)"
+      });
 //    pos = Math.max(pos, getWidth()/2-f1.stringWidth(str[i])/2);
       pos = Math.min(pos, getWidth()/2-f1.stringWidth(str[i])/2);
       prev = k;

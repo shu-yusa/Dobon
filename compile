@@ -1,7 +1,7 @@
 #!/bin/sh
 APP=Dobon
 # compile src
-javac -classpath ./midplib/cldcapi11.jar:./midplib/midpapi21.jar -d tmpclasses/ src/*.java
+javac -Xlint:unchecked -classpath ./midplib/cldcapi11.jar:./midplib/midpapi21.jar -d tmpclasses/ src/*.java
 # preverify
 ./midplib/preverify -nofinalize -nonative -classpath ./midplib/cldcapi11.jar:./midplib/midpapi21.jar -d ./classes ./tmpclasses
 

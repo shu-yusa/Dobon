@@ -73,9 +73,9 @@ public class LoadCanvas extends GameCanvas implements Runnable {
 
     int strlen = f1.stringWidth("ロード中.");
     g.setColor(0,0,153);
-    g.drawString("ロード中"+str,WIDTH/2-strlen/2+1,HEIGHT/2-fh/2+1,Graphics.LEFT|Graphics.TOP);
+    g.drawString("ロード中".concat(str), WIDTH/2-strlen/2+1, HEIGHT/2-fh/2+1, Graphics.LEFT|Graphics.TOP);
     g.setColor(0,0,255);
-    g.drawString("ロード中"+str,WIDTH/2-strlen/2,HEIGHT/2-fh/2,Graphics.LEFT|Graphics.TOP);
+    g.drawString("ロード中".concat(str), WIDTH/2-strlen/2, HEIGHT/2-fh/2, Graphics.LEFT|Graphics.TOP);
 
     flushGraphics();
   }
